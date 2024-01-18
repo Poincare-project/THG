@@ -1,9 +1,15 @@
 import torch
 from torch import Tensor, nn
-
+import math
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model: int, dropout: float = 0.1, max_len: int = 5000):
+        """
+        Arguments:
+            d_model: the embedding dimension
+            dropout: the dropout rate
+            max_len: the maximum length of the sequence
+        """
         super().__init__()
         self.dropout = nn.Dropout(p=dropout)
 
