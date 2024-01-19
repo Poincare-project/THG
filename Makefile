@@ -1,7 +1,7 @@
-testsuite:
+testsuite: reformat
 	@echo "Running tests"
 	@echo "======"
-	@python -m pytest -s
+	@python -m pytest -s -v
 
 reformat:
 	@echo "Reformatting code"

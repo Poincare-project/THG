@@ -21,6 +21,7 @@ class PositionalEncoding(nn.Module):
         div_term = torch.exp(
             torch.arange(0, d_model, 2) * (-math.log(10000.0) / d_model)
         )
+
         positional_enc = torch.zeros(max_sequence_len, 1, d_model)
         positional_enc[:, 0, 0::2] = torch.sin(position * div_term)
         positional_enc[:, 0, 1::2] = torch.cos(position * div_term)
