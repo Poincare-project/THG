@@ -17,8 +17,8 @@ from itertools import product
 
 # Supposons que vous ayez trois listes
 liste1 = [1, 2]
-liste2 = ['a', 'b']
-liste3 = ['x', 'y']
+liste2 = ["a", "b"]
+liste3 = ["x", "y"]
 
 # Utilisez la fonction product pour obtenir toutes les combinaisons possibles
 combinaisons = list(product(liste1, liste2, liste3))
