@@ -30,7 +30,7 @@ n_heads_list = [8, 16]
 batch_size_list = [32, 64]
 seq_len_list = [10, 20]
 d_ff_list = [2048, 4096]
-dropout_list = [0.1, 0.2, 0.3]  
+dropout_list = [0.1, 0.2, 0.3]
 mh_parametrize_set = list(
     itertools.product(d_model_list, n_heads_list, batch_size_list, seq_len_list)
 )
@@ -54,11 +54,17 @@ def test_multihead_attention(d_model, n_heads, batch_size, seq_len):
     assert K.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
     assert V.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
 
-encoder_parametrize_set = list(itertools.product(d_model_list, n_heads_list, d_ff_list, dropout_list))
+
+encoder_parametrize_set = list(
+    itertools.product(d_model_list, n_heads_list, d_ff_list, dropout_list)
+)
+
+
 @pytest.mark.parametrize(
     "d_model, n_heads, d_ff, dropout",
     encoder_parametrize_set,
 )
 def test_encoder(d_model, n_heads, d_ff, dropout):
-    Encoder(d_model=d_model, n_heads=n_heads, d_ff=d_ff, dropout=dropout)
-    
+    x = torch.randn(10, 32, d_model)
+    encoder = Encoder(d_model=d_model, n_heads=n_heads, d_ff=d_ff, dropout=dropout)
+    assert encoder(x).shape == x.shape
