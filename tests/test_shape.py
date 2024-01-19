@@ -47,12 +47,15 @@ def test_multihead_attention(d_model, n_heads, batch_size, seq_len):
     mha = HyMultiHeadAttention(d_model=d_model, num_heads=n_heads, dropout=0.1)
     batch_size = 1
     seq_len = 10
+
     x = torch.randn(batch_size, seq_len, d_model)
 
     Q, K, V = mha.get_qkv(x)
     assert Q.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
     assert K.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
     assert V.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
+    attention = mha.attn_prod(Q, K, V)
+    assert attention.shape == (batch_size, n_heads, seq_len, d_model // n_heads)
 
 
 encoder_parametrize_set = list(
